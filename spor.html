@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Yunus Haber - Spor Kategorisi</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --ana-renk: #1976D2;
+            --vurgu-renk: #FF9800;
+            --arka-fon-gri: #F5F5F5;
+            --yazi-renk: #222222;
+            --son-dakika-kirmizi: #D32F2F;
+        }
+
+        body {
+            background-color: var(--arka-fon-gri);
+            font-family: 'Roboto', sans-serif;
+            color: var(--yazi-renk);
+        }
+
+        h1, h2, h3, h4, h5, h6, .navbar-brand, .nav-link, .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+        
+        .container-fluid {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .section-spacing {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: var(--son-dakika-kirmizi);
+            color: #fff;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        .top-bar-ticker {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        /* Header */
+        .header-main {
+            background-color: #fff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: var(--ana-renk);
+        }
+        .nav-link {
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .header-icons .bi {
+            font-size: 1.25rem;
+            margin-left: 1rem;
+            color: var(--yazi-renk);
+        }
+         .header-icons .nav-link {
+            padding: 0;
+            margin-left: 1rem;
+        }
+        .header-icons .nav-link:hover {
+            color: var(--ana-renk);
+        }
+
+
+        /* Section Titles */
+        .section-title {
+            border-bottom: 3px solid var(--ana-renk);
+            padding-bottom: 5px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        /* Cards */
+        .card {
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 1.5rem; /* Genel kart boşluğu */
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        .card-img-top {
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+
+        /* Sidebar Widgets */
+        .sidebar-widget {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+        .sidebar-widget h4 {
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--arka-fon-gri);
+            padding-bottom: 10px;
+            margin-bottom: 1rem;
+        }
+        .popular-post-item {
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .popular-post-item:last-child { border-bottom: none; }
+        
+        /* Reklam Alanları */
+        .reklam-alani-sidebar, .reklam-alani-main {
+            background: #fafafa;
+            border: 1px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-weight: bold;
+            overflow: hidden; 
+        }
+        .reklam-alani-sidebar {
+            width: 100%;
+            height: 250px; 
+            margin-bottom: 1.5rem;
+        }
+        .reklam-alani-sidebar img, .reklam-alani-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+        }
+        .reklam-alani-main {
+            width: 100%;
+            height: 90px; 
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Video Galeri */
+        .video-gallery-main img {
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .video-gallery-thumbs img {
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 5px;
+            opacity: 0.8;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .video-gallery-thumbs img:hover { opacity: 1; }
+        
+        /* Dünya Liste Akışı (Kategori Sayfası için de kullanıldı) */
+        .dunya-list-item {
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .dunya-list-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        .dunya-list-item img {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px 0 0 8px;
+        }
+        @media (max-width: 576px) { 
+            .dunya-list-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .dunya-list-item img {
+                width: 100%;
+                height: auto;
+                border-radius: 8px 8px 0 0;
+            }
+            .kategori-list-item img {
+                width: 100%;
+                height: 180px;
+                border-radius: 8px 8px 0 0;
+            }
+        }
+        .kategori-list-item img {
+            width: 250px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px 0 0 8px;
+        }
+
+
+        /* Sidebar Sekmeleri */
+        .nav-tabs .nav-link {
+            color: var(--yazi-renk);
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-weight: 600;
+        }
+        .nav-tabs .nav-link.active {
+            color: var(--ana-renk);
+            border-bottom-color: var(--ana-renk);
+            background-color: transparent;
+        }
+        .nav-tabs .nav-link:hover {
+            border-color: transparent;
+            border-bottom-color: var(--ana-renk);
+        }
+        .tab-content .list-group-item {
+            border: none;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        .tab-content .list-group-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Subscribe Section */
+        .subscribe-section {
+            background: linear-gradient(90deg, var(--ana-renk), #1565C0);
+            color: #fff;
+            padding: 3rem 0;
+        }
+        .btn-vurgu {
+            background-color: var(--vurgu-renk);
+            border-color: var(--vurgu-renk);
+            color: #fff;
+            font-weight: bold;
+        }
+        .btn-vurgu:hover {
+            background-color: #E67E00;
+            border-color: #E67E00;
+        }
+
+        /* Footer */
+        .footer-main {
+            background-color: #222;
+            color: #ccc;
+            padding: 3rem 0 1rem 0;
+        }
+        .footer-main h5 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+        .footer-main a {
+            color: #ccc;
+            text-decoration: none;
+            display: block; 
+            margin-bottom: 0.5rem;
+        }
+        .footer-main a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .footer-main .social-icons a {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: #fff;
+        }
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 1rem;
+            margin-top: 2rem;
+            color: #aaa;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb-item a {
+            color: var(--ana-renk);
+            text-decoration: none;
+        }
+
+        /* YENİ EKLENEN SPOR STİLLERİ */
+        
+        /* Puan Durumu Widget'ı */
+        .puan-durumu-widget {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .puan-durumu-widget h5 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--arka-fon-gri);
+            padding-bottom: 0.5rem;
+        }
+        .puan-durumu-widget table {
+            font-size: 0.9rem;
+        }
+        .puan-durumu-widget th {
+            font-weight: 700;
+            color: #555;
+        }
+        .puan-durumu-widget .team-name {
+            font-weight: 600;
+        }
+        /* İlk 4 takımı vurgula */
+        .puan-durumu-widget tbody tr:nth-child(-n+4) {
+            background-color: #f9f9f9;
+            border-left: 4px solid var(--ana-renk);
+        }
+
+        /* Manşet Spor Haberi (Derbi) */
+        .card-derbi {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .card-derbi img {
+            filter: brightness(0.7);
+            transition: transform 0.4s;
+        }
+        .card-derbi:hover img {
+            transform: scale(1.05);
+        }
+        .card-derbi .card-img-overlay {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .card-derbi .card-title {
+            font-size: 2rem;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+        }
+        .card-derbi .badge {
+            font-size: 1rem;
+            align-self: flex-start;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="top-bar d-none d-md-block">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-2 fw-bold text-center">
+                    <span class="bg-white text-danger px-2 py-1 rounded">SON DAKİKA</span>
+                </div>
+                <div class="col-md-8 top-bar-ticker">
+                    <span>Siyasette sıcak gelişmeler: Yeni yasa tasarısı mecliste onaylandı! - Teknoloji devinden yeni ürün tanıtımı bekleniyor...</span>
+                </div>
+                <div class="col-md-2 text-end">
+                    <i class="bi bi-calendar-event"></i> 1 Kasım 2025
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg header-main sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fs-4" href="index.html">
+                <i class="bi bi-newspaper"></i> YUNUS HABER
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                   <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Ana Sayfa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gündem.html">Gündem</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Teknoloji Kategorisi.html">Teknoloji</a></li>
+                    <li class="nav-item"><a class="nav-link" href="spor.html">Spor</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ekonomi.html">Ekonomi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dünya.html">Dünya</a></li>
+                    <li class="nav-item"><a class="nav-link" href="video galleri.html">Video Galeri</a></li>
+                    <li class="nav-item"><a class="nav-link" href="iletişim.html">İletişim</a></li>
+                </ul>
+                <div class="d-flex align-items-center header-icons">
+                    <a href="#" class="nav-link" aria-label="Arama Yap"><i class="bi bi-search"></i></a>
+                    <a href="üye.html" class="nav-link" aria-label="Kullanıcı Girişi"><i class="bi bi-person"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container section-spacing">
+        <div class="row">
+            
+            <div class="col-lg-8">
+                
+                <nav aria-label="breadcrumb" class="mb-2">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="index.html">Ana Sayfa</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Spor</li>
+                    </ol>
+                  </nav>
+
+                <h2 class="section-title">SPOR HABERLERİ</h2>
+
+                <div class="card card-derbi text-white mb-4">
+                    <img src="https://picsum.photos/800/400?random=40" class="card-img" alt="Derbi Haberi">
+                    <div class="card-img-overlay">
+                        <span class="badge bg-danger mb-2">CANLI</span>
+                        <h3 class="card-title">Dev Derbide Nefesler Tutuldu: İki Takım da Sahada!</h3>
+                        <p class="card-text d-none d-md-block">Süper Lig'in 10. haftasında oynanan kritik mücadelede son gelişmeler, canlı anlatım ve analizler...</p>
+                    </div>
+                </div>
+
+                <div class="puan-durumu-widget mb-4">
+                    <h5>SÜPER LİG PUAN DURUMU (İlk 5)</h5>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Takım</th>
+                                <th>O</th>
+                                <th>P</th>
+                                <th>Av.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td class="team-name">Lider Spor</td>
+                                <td>10</td>
+                                <td>28</td>
+                                <td>+15</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td class="team-name">Şampiyon Gücü</td>
+                                <td>10</td>
+                                <td>25</td>
+                                <td>+12</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td class="team-name">Boğazın İncisi</td>
+                                <td>10</td>
+                                <td>22</td>
+                                <td>+10</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td class="team-name">Anadolu Kartalları</td>
+                                <td>10</td>
+                                <td>20</td>
+                                <td>+8</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td class="team-name">Akdeniz Ateşi</td>
+                                <td>10</td>
+                                <td>18</td>
+                                <td>+5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a href="#" class="btn btn-outline-primary btn-sm w-100">Tüm Puan Durumunu Gör</a>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <img src="https://picsum.photos/600/338?random=41" class="card-img-top" alt="Spor 1">
+                            <div class="card-body">
+                                <h5 class="card-title">Transfer Dönemi Kapanmadan Son Bomba!</h5>
+                                <p class="card-text">Yıldız oyuncu hangi takıma imzayı atacak? Menajerler İstanbul'da...</p>
+                                <a href="#" class="btn btn-outline-dark btn-sm">Devamını Oku</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <img src="https://picsum.photos/600/338?random=42" class="card-img-top" alt="Spor 2">
+                            <div class="card-body">
+                                <h5 class="card-title">Avrupa'da Türk Gecesi: 3 Takım da Kazandı!</h5>
+                                <p class="card-text">Temsilcilerimiz, Avrupa kupalarında aldıkları galibiyetlerle ülkeye puan kazandırdı.</p>
+                                <a href="#" class="btn btn-outline-dark btn-sm">Devamını Oku</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <img src="https://picsum.photos/600/338?random=43" class="card-img-top" alt="Spor 3">
+                            <div class="card-body">
+                                <h5 class="card-title">Potada Kritik Viraj: Milli Takım Parkede</h5>
+                                <p class="card-text">Basketbol milli takımımız, Dünya Şampiyonası elemelerinde kritik maça çıkıyor.</p>
+                                <a href="#" class="btn btn-outline-dark btn-sm">Devamını Oku</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <img src="https://picsum.photos/600/338?random=44" class="card-img-top" alt="Spor 4">
+                            <div class="card-body">
+                                <h5 class="card-title">Filede Sultanlar Durdurulamıyor!</h5>
+                                <p class="card-text">Voleybol milli takımımız, Milletler Ligi'nde seriye devam ediyor. Son kurban...</p>
+                                <a href="#" class="btn btn-outline-dark btn-sm">Devamını Oku</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <nav aria-label="Sayfalar" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                      <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Geri</a>
+                      </li>
+                      <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">İleri</a>
+                      </li>
+                    </ul>
+                </nav>
+
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="sticky-top" style="top: 80px;"> 
+                    
+                    <div class="reklam-alani-sidebar mb-4">
+                        <img src="https://via.placeholder.com/300x250/dc3545/fff?text=Sidebar+Reklam+(300x250)" alt="Dikey Reklam">
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="cok-okunanlar-tab" data-bs-toggle="tab" data-bs-target="#cok-okunanlar" type="button" role="tab" aria-controls="cok-okunanlar" aria-selected="true">ÇOK OKUNANLAR</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="yorumlar-tab" data-bs-toggle="tab" data-bs-target="#yorumlar" type="button" role="tab" aria-controls="yorumlar" aria-selected="false">YORUMLAR</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="cok-okunanlar" role="tabpanel" aria-labelledby="cok-okunanlar-tab">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item popular-post-item d-flex align-items-center">
+                                        <img src="https://picsum.photos/60/60?random=19" class="rounded me-3" alt="Popüler 1">
+                                        <a href="#" class="text-dark text-decoration-none fw-bold">1. Yapay Zeka Etiği Tartışmaları</a>
+                                    </li>
+                                    <li class="list-group-item popular-post-item d-flex align-items-center">
+                                        <img src="https://picsum.photos/60/60?random=20" class="rounded me-3" alt="Popüler 2">
+                                        <a href="#" class="text-dark text-decoration-none fw-bold">2. Enflasyon Rakamlarında Son Durum</a>
+                                    </li>
+                                    <li class="list-group-item popular-post-item d-flex align-items-center">
+                                        <img src="https://picsum.photos/60/60?random=21" class="rounded me-3" alt="Popüler 3">
+                                        <a href="#" class="text-dark text-decoration-none fw-bold">3. Süper Lig'de Haftanın Maçları</a>
+                                    </li>
+                                    <li class="list-group-item popular-post-item d-flex align-items-center">
+                                        <img src="https://picsum.photos/60/60?random=22" class="rounded me-3" alt="Popüler 4">
+                                        <a href="#" class="text-dark text-decoration-none fw-bold">4. Yeni Nesil Akıllı Telefon İncelemesi</a>
+                                    </li>
+                                    <li class="list-group-item popular-post-item d-flex align-items-center">
+                                        <img src="https://picsum.photos/60/60?random=23" class="rounded me-3" alt="Popüler 5">
+                                        <a href="#" class="text-dark text-decoration-none fw-bold">5. Uzay Araştırmalarında Yeni Keşifler</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="yorumlar" role="tabpanel" aria-labelledby="yorumlar-tab">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item popular-post-item">
+                                        <small class="text-muted">Ahmet Y. - "Çok faydalı bir haber..."</small><br>
+                                        <a href="#" class="text-dark text-decoration-none">Yapay Zeka Etiği Tartışmaları</a>
+                                    </li>
+                                    <li class="list-group-item popular-post-item">
+                                        <small class="text-muted">Zeynep K. - "Ekonomi çok hassas..."</small><br>
+                                        <a href="#" class="text-dark text-decoration-none">Enflasyon Rakamlarında Son Durum</a>
+                                    </li>
+                                    <li class="list-group-item popular-post-item">
+                                        <small class="text-muted">Mustafa A. - "Transferde çok şaşırdım..."</small><br>
+                                        <a href="#" class="text-dark text-decoration-none">Transferde Son Bomba!</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="reklam-alani-sidebar mb-4">
+                        <img src="https://via.placeholder.com/300x250/28a745/fff?text=Sidebar+Reklam+2+(300x250)" alt="Dikey Reklam 2">
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h4>VİDEO GALERİ</h4>
+                        <div class="video-gallery-main mb-3">
+                             <img src="https://picsum.photos/400/225?random=24" class="img-fluid" alt="Ana Video">
+                             <h6 class="mt-2">Haftanın En Çok Konuşulan Röportajı: Teknolojiye Bakış</h6>
+                        </div>
+                        <div class="row video-gallery-thumbs g-2">
+                            <div class="col-4"><img src="https://picsum.photos/150/84?random=25" class="img-fluid" alt="Video 1"></div>
+                            <div class="col-4"><img src="https://picsum.photos/150/84?random=26" class="img-fluid" alt="Video 2"></div>
+                            <div class="col-4"><img src="https://picsum.photos/150/84?random=27" class="img-fluid" alt="Video 3"></div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h4>KATEGORİLER</h4>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Gündem <span class="badge bg-primary rounded-pill">14</span></a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Teknoloji <span class="badge bg-primary rounded-pill">8</span></a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items: center">Spor <span class="badge bg-primary rounded-pill">22</span></a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Ekonomi <span class="badge bg-primary rounded-pill">10</span></a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Dünya <span class="badge bg-primary rounded-pill">18</span></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div> </div> </div> <section class="subscribe-section text-center section-spacing">
+        <div class="container">
+            <h3 class="fw-bold">Yunus Haber'e abone ol, en güncel gelişmeleri kaçırma!</h3>
+            <p>Haftalık bültenimize kaydolun.</p>
+            <form class="row justify-content-center g-3 mt-3">
+                <div class="col-auto col-md-5 col-lg-4">
+                    <input type="email" class="form-control form-control-lg" placeholder="E-posta adresiniz...">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-vurgu btn-lg">Abone Ol</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="fs-4"><i class="bi bi-newspaper"></i> YUNUS HABER</h5>
+                    <p class="mt-3">Tarafsız, hızlı ve doğru habercilik ilkesiyle yayın hayatına devam eden Yunus Haber, gündemi sizin için takip eder.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5>Hızlı Menü</h5>
+                    <ul class="list-unstyled row">
+                        <li class="col-6"><a href="#">Gündem</a></li>
+                        <li class="col-6"><a href="#">Teknoloji</a></li>
+                        <li class="col-6"><a href="#">Spor</a></li>
+                        <li class="col-6"><a href="#">Ekonomi</a></li>
+                        <li class="col-6"><a href="#">Dünya</a></li>
+                        <li class="col-6"><a href="#">Hakkımızda</a></li>
+                        <li class="col-6"><a href="#">İletişim</a></li>
+                        <li class="col-6"><a href="#">Gizlilik Politikası</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>İletişim</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-envelope-fill me-2"></i> info@yunushaber.com</li>
+                        <li><i class="bi bi-phone-fill me-2"></i> +90 5XX XXX XX XX</li>
+                        <li><i class="bi bi-geo-alt-fill me-2"></i> İstanbul, Türkiye</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row footer-bottom">
+                <div class="col text-center">
+                    <p class="mb-0">© 2025 Yunus Haber - Tüm Hakları Saklıdır.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
