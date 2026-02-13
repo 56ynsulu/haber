@@ -3,711 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yunus Haber - (Çok Zengin Tasarım)</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
+    <title>Sana Özel Romantik Sürpriz</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Great+Vibes&family=Poppins:wght@300&display=swap');
+
         :root {
-            --ana-renk: #1976D2;
-            --vurgu-renk: #FF9800;
-            --arka-fon-gri: #F5F5F5;
-            --yazi-renk: #222222;
-            --son-dakika-kirmizi: #D32F2F;
+            --envelope-color: #ff4d6d; /* Romantik gül pembesi */
+            --envelope-dark: #c9184a;  /* Derin bordo/pembe tonu */
+            --paper-color: #fffaf0;    /* Premium fildişi kağıt */
+            --gold: #ffb703;           /* Altın ışıltısı */
+            --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
         }
 
         body {
-            background-color: var(--arka-fon-gri);
-            font-family: 'Roboto', sans-serif;
-            color: var(--yazi-renk);
-        }
-
-        h1, h2, h3, h4, h5, h6, .navbar-brand, .nav-link, .card-title {
+            background: var(--bg-gradient);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
             font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-        }
-        
-        /* Genel Konteyner ve Bölüm Aralıkları */
-        .container-fluid {
-            padding-left: 0;
-            padding-right: 0;
-        }
-        .section-spacing {
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-        }
-
-        /* Top Bar */
-        .top-bar {
-            background-color: var(--son-dakika-kirmizi);
-            color: #fff;
-            padding: 0.5rem 0;
-            font-size: 0.9rem;
-        }
-        .top-bar-ticker {
             overflow: hidden;
-            white-space: nowrap;
+            perspective: 1500px;
         }
 
-        /* Header */
-        .header-main {
-            background-color: #fff;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .navbar-brand {
-            font-weight: bold;
-            color: var(--ana-renk);
-        }
-        .nav-link {
-            text-transform: uppercase;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-        .header-icons .bi {
-            font-size: 1.25rem;
-            margin-left: 1rem;
-            color: var(--yazi-renk);
-        }
-
-        /* Manşet Slider */
-        .carousel-item {
-            height: 500px;
-        }
-        .carousel-item img {
-            object-fit: cover;
+        /* Arka Plan Işıltıları (Yıldızlar) */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            filter: brightness(0.6);
-        }
-        .carousel-caption {
-            bottom: 20%;
-            text-align: left;
-            left: 10%;
-            right: auto;
-            max-width: 60%;
-        }
-        .carousel-caption h2 {
-            font-size: 2.8rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-        }
-        @media (max-width: 768px) {
-            .carousel-item { height: 300px; }
-            .carousel-caption { bottom: 5%; left: 5%; max-width: 90%; }
-            .carousel-caption h2 { font-size: 1.8rem; }
+            z-index: 0;
+            pointer-events: none;
         }
 
-        /* Section Titles */
-        .section-title {
-            border-bottom: 3px solid var(--ana-renk);
-            padding-bottom: 5px;
-            display: inline-block;
-            margin-bottom: 1.5rem;
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 90%;
+            max-width: 350px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .container:hover {
+            transform: scale(1.05) rotate(1deg);
+        }
+
+        /* --- ZARF TASARIMI --- */
+        .envelope {
+            width: 100%;
+            height: 230px;
+            background: var(--envelope-color);
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* Üst Kapak */
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--envelope-color);
+            clip-path: polygon(0 0, 100% 0, 50% 60%);
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.2s linear 0.4s;
+            z-index: 5;
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+        }
+
+        /* Zarfın Ön Kısmı */
+        .pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--envelope-color);
+            clip-path: polygon(0 40%, 50% 65%, 100% 40%, 100% 100%, 0 100%);
+            z-index: 4;
+            background: linear-gradient(150deg, var(--envelope-color) 40%, var(--envelope-dark) 100%);
+            border-radius: 0 0 10px 10px;
+        }
+
+        /* Zarfın İç Duvarı */
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--envelope-dark);
+            border-radius: 10px;
+            z-index: 0;
+        }
+
+        /* --- MEKTUP KAĞIDI --- */
+        .letter {
+            position: absolute;
+            width: 90%;
+            height: 160%; /* Orantılı yükseklik */
+            background: var(--paper-color);
+            top: 5%;
+            left: 5%;
+            border-radius: 4px;
+            padding: 25px 15px;
+            box-sizing: border-box;
+            z-index: 2;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(0) scale(0.85);
+            opacity: 0;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+            background-image: radial-gradient(#f0e6d2 1px, transparent 1px);
+            background-size: 20px 20px;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .letter::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Mektup İçeriği */
+        .letter-inner {
+            border: 1px double rgba(212, 175, 55, 0.5);
+            min-height: 100%;
+            padding: 15px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .letter h2 {
+            font-family: 'Great Vibes', cursive;
             font-size: 1.8rem;
-        }
-        
-        /* Cards */
-        .card {
-            border: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-            margin-bottom: 1.5rem; /* Genel kart boşluğu */
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-        }
-        .card-img-top {
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
+            margin: 0 0 10px 0;
+            color: var(--envelope-dark);
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
         }
 
-        /* Sidebar Widgets */
-        .sidebar-widget {
-            background-color: #fff;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            margin-bottom: 1.5rem;
+        .letter p {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.4;
+            margin: 6px 0;
+            text-align: center;
         }
-        .sidebar-widget h4 {
-            font-size: 1.2rem;
-            border-bottom: 2px solid var(--arka-fon-gri);
-            padding-bottom: 10px;
-            margin-bottom: 1rem;
+
+        .letter .signature {
+            margin-top: 20px;
+            align-self: flex-end;
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5rem;
+            color: var(--envelope-dark);
         }
-        .popular-post-item {
-            border-bottom: 1px solid #f0f0f0;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
+
+        /* --- ANİMASYONLAR --- */
+        .container.open .flap {
+            transform: rotateX(180deg);
+            z-index: 1;
         }
-        .popular-post-item:last-child { border-bottom: none; }
-        
-        /* Reklam Alanları */
-        .reklam-alani-sidebar, .reklam-alani-main {
-            background: #fafafa;
-            border: 1px dashed #ccc;
+
+        .container.open .letter {
+            opacity: 1;
+            /* Mobil için yukarı çıkış miktarını ayarladık */
+            transform: translateY(-280px) scale(1.05); 
+            z-index: 10;
+        }
+
+        /* Mühür Kalp */
+        .seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            border-radius: 50%;
+            transform: translate(-50%, -25%);
+            z-index: 6;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #999;
-            font-weight: bold;
-            overflow: hidden; /* Resmin taşmasını engelle */
-        }
-        .reklam-alani-sidebar {
-            width: 100%;
-            height: 250px; /* Standart 300x250 dikey reklam boyutu */
-            margin-bottom: 1.5rem;
-        }
-        .reklam-alani-sidebar img, .reklam-alani-main img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Resmi alana sığdır */
-        }
-        .reklam-alani-main {
-            width: 100%;
-            height: 90px; /* Standart 728x90 yatay reklam boyutu */
-            margin-top: 2rem;
-            margin-bottom: 2rem;
+            transition: all 0.5s ease;
         }
 
-        /* Video Galeri */
-        .video-gallery-main img {
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            border-radius: 5px;
+        .seal::after {
+            content: '❤';
+            color: white;
+            font-size: 24px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
-        .video-gallery-thumbs img {
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            border-radius: 5px;
-            opacity: 0.8;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-        .video-gallery-thumbs img:hover { opacity: 1; }
 
-        /* Ekonomi Mini Kart */
-        .ekonomi-mini-card .card-body {
-            padding: 0.75rem;
+        .container.open .seal {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(2);
+            pointer-events: none;
         }
-        .ekonomi-mini-card .card-title {
-            font-size: 0.9rem;
-            margin-bottom: 0;
+
+        /* Talimat ve Efektler */
+        .instruction {
+            color: white;
+            margin-top: 60px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            opacity: 0.6;
+            position: absolute;
+            bottom: -50px;
+            width: 100%;
+            text-align: center;
         }
-        
-        /* Dünya Liste Akışı */
-        .dunya-list-item {
-            background-color: #fff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            transition: transform 0.3s, box-shadow 0.3s;
+
+        /* Kalp Yağmuru (Açıldığında) */
+        .heart-particle {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 100;
+            animation: fall linear forwards;
         }
-        .dunya-list-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-        }
-        .dunya-list-item img {
-            width: 150px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 8px 0 0 8px;
-        }
-        @media (max-width: 576px) { /* Telefonlarda tam genişlikte göster */
-            .dunya-list-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .dunya-list-item img {
-                width: 100%;
-                height: auto;
-                border-radius: 8px 8px 0 0;
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
             }
         }
 
-        /* Sidebar Sekmeleri (Çok Okunanlar / Yorumlar) */
-        .nav-tabs .nav-link {
-            color: var(--yazi-renk);
-            border: none;
-            border-bottom: 2px solid transparent;
-            font-weight: 600;
+        /* Mobil Ekran Düzenlemeleri */
+        @media screen and (max-height: 700px) {
+            .container.open .letter {
+                transform: translateY(-240px) scale(1);
+            }
+            .letter {
+                height: 150%;
+            }
         }
-        .nav-tabs .nav-link.active {
-            color: var(--ana-renk);
-            border-bottom-color: var(--ana-renk);
-            background-color: transparent;
-        }
-        .nav-tabs .nav-link:hover {
-            border-color: transparent;
-            border-bottom-color: var(--ana-renk);
-        }
-        .tab-content .list-group-item {
-            border: none;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 0.5rem;
-            padding-bottom: 0.5rem;
-        }
-        .tab-content .list-group-item:last-child {
-            border-bottom: none;
-        }
-
-        /* Subscribe Section */
-        .subscribe-section {
-            background: linear-gradient(90deg, var(--ana-renk), #1565C0);
-            color: #fff;
-            padding: 3rem 0;
-        }
-        .btn-vurgu {
-            background-color: var(--vurgu-renk);
-            border-color: var(--vurgu-renk);
-            color: #fff;
-            font-weight: bold;
-        }
-        .btn-vurgu:hover {
-            background-color: #E67E00;
-            border-color: #E67E00;
-        }
-
-        /* Footer */
-        .footer-main {
-            background-color: #222;
-            color: #ccc;
-            padding: 3rem 0 1rem 0;
-        }
-        .footer-main h5 {
-            color: #fff;
-            margin-bottom: 1.5rem;
-        }
-        .footer-main a {
-            color: #ccc;
-            text-decoration: none;
-            display: block; /* Her link alt alta */
-            margin-bottom: 0.5rem;
-        }
-        .footer-main a:hover {
-            color: #fff;
-            text-decoration: underline;
-        }
-        .footer-main .social-icons a {
-            font-size: 1.5rem;
-            margin-right: 1rem;
-            color: #fff;
-        }
-        .footer-bottom {
-            border-top: 1px solid #444;
-            padding-top: 1rem;
-            margin-top: 2rem;
-            color: #aaa;
-        }
-
     </style>
 </head>
 <body>
 
-    <div class="top-bar d-none d-md-block">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-2 fw-bold text-center">
-                    <span class="bg-white text-danger px-2 py-1 rounded">SON DAKİKA</span>
-                </div>
-                <div class="col-md-8 top-bar-ticker">
-                    <span>Siyasette sıcak gelişmeler: Yeni yasa tasarısı mecliste onaylandı! - Teknoloji devinden yeni ürün tanıtımı bekleniyor...</span>
-                </div>
-                <div class="col-md-2 text-end">
-                    <i class="bi bi-calendar-event"></i> 31 Ekim 2025
+    <div class="stars" id="starsContainer"></div>
+
+    <div class="container" id="mainContainer" onclick="toggleLetter()">
+        <div class="envelope">
+            <div class="flap"></div>
+            <div class="pocket"></div>
+            <div class="seal"></div>
+            
+            <div class="letter">
+                <div class="letter-inner">
+                    <h2>Bir Tanem,</h2>
+                    <p>Bu gece sana ulaşmasını istediğim küçük bir sürpriz vardı…</p>
+                    <p>Her şeyi 14 Şubat’a göre planlamıştım.</p>
+                    <p>Ama ufak bir aksaklık yüzünden kargo birkaç gün gecikecek.</p>
+                    <p>İnan bana, tam zamanında eline geçmesini çok istemiştim.</p>
+                    <p>Olmadı… Ama bil ki içindeki düşünce ve heyecan hâlâ aynı.</p>
+                    <p>Hediyen birkaç gün içinde sana ulaşacak.</p>
+                    <p>O zamana kadar bu küçük bir sır, tatlı bir sürpriz olarak saklı kalsın.</p>
+                    <p>Değecek. ❤️</p>
+                    <div class="signature">Seni Çok Seviyorum...</div>
                 </div>
             </div>
         </div>
+        <div class="instruction">Dokun ve Sürprizi Gör Sevgilim</div>
     </div>
 
-    <nav class="navbar navbar-expand-lg header-main sticky-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fs-4" href="index.html">
-                <i class="bi bi-newspaper"></i> YUNUS HABER
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="mainNavbar">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Ana Sayfa</a></li>
-                    <li class="nav-item"><a class="nav-link" href="gündem.html">Gündem</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Teknoloji Kategorisi.html">Teknoloji</a></li>
-                    <li class="nav-item"><a class="nav-link" href="spor.html">Spor</a></li>
-                    <li class="nav-item"><a class="nav-link" href="ekonomi.html">Ekonomi</a></li>
-                    <li class="nav-item"><a class="nav-link" href="dünya.html">Dünya</a></li>
-                    <li class="nav-item"><a class="nav-link" href="video galleri.html">Video Galeri</a></li>
-                    <li class="nav-item"><a class="nav-link" href="iletişim.html">İletişim</a></li>
-                </ul>
-                <div class="d-flex align-items-center header-icons">
-                                 <a href="üye.html" class="nav-link" aria-label="Kullanıcı Girişi"><i class="bi bi-person"></i></a>
-
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <div id="mansetSlider" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#mansetSlider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#mansetSlider" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#mansetSlider" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://picsum.photos/1920/800?random=1" class="d-block w-100" alt="Manşet Haber 1">
-                <div class="carousel-caption">
-                    <h2>YENİ NESİL ŞEHİRCİLİK: AKILLI TEKNOLOJİLER HAYATI KOLAYLAŞTIRIYOR</h2>
-                    <p class="d-none d-md-block">Sürdürülebilir ulaşım, yapay zeka destekli altyapı ve yeşil alanlar şehirlerimizi dönüştürüyor.</p>
-                    <a href="#" class="btn btn-vurgu d-none d-md-inline-block">Devamını Oku</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://picsum.photos/1920/800?random=2" class="d-block w-100" alt="Manşet Haber 2">
-                <div class="carousel-caption">
-                    <h2>EKONOMİDE KRİTİK VİRAJ: MERKEZ BANKASI FAİZ KARARI AÇIKLANDI</h2>
-                    <p class="d-none d-md-block">Piyasaların merakla beklediği karar sonrası dolar ve euroda son durum.</p>
-                    <a href="#" class="btn btn-vurgu d-none d-md-inline-block">Devamını Oku</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://picsum.photos/1920/800?random=3" class="d-block w-100" alt="Manşet Haber 3">
-                <div class="carousel-caption">
-                    <h2>SPOR DÜNYASINDA TARİHİ ANLAŞMA: YILDIZ OYUNCU İMZA ATTI</h2>
-                    <p class="d-none d-md-block">Dev kulüp, astronomik bir bedelle dünyaca ünlü yıldızı kadrosuna kattı.</p>
-                    <a href="#" class="btn btn-vurgu d-none d-md-inline-block">Devamını Ooku</a>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#mansetSlider" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#mansetSlider" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-
-    <div class="container section-spacing">
-        <div class="row">
-            <div class="col-lg-8">
-                
-                <h2 class="section-title">GÜNDEM</h2>
-                <div class="row mb-4">
-                    <div class="col-12 mb-4">
-                        <div class="card">
-                            <img src="https://picsum.photos/800/450?random=4" class="card-img-top" alt="Gündem Haberi">
-                            <div class="card-body">
-                                <h4 class="card-title">Gündemdeki Ana Başlık: Siyasette Hareketli Günler</h4>
-                                <p class="card-text">Mecliste yeni torba yasa tartışmaları sürerken, muhalefet partilerinden sert açıklamalar geldi. Genel başkanlar peş peşe açıklamalarda bulunarak hükümetin ekonomi politikalarını eleştirdi.</p>
-                                <a href="#" class="btn btn-outline-dark btn-sm">Devamını Oku</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        <div class="card">
-                            <img src="https://picsum.photos/600/338?random=5" class="card-img-top" alt="Gündem 2">
-                            <div class="card-body">
-                                <h5 class="card-title">Deprem Bölgelerinde Konut Teslimatları Başladı</h5>
-                                <p class="card-text">Bakanlık yetkilileri, vatandaşlara yapılan ev teslimatlarının hız kesmeden devam edeceğini açıkladı.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        <div class="card">
-                            <img src="https://picsum.photos/600/338?random=6" class="card-img-top" alt="Gündem 3">
-                            <div class="card-body">
-                                <h5 class="card-title">Büyük Şehirlerde Trafik Çilesi ve Alternatif Çözümler</h5>
-                                <p class="card-text">Uzmanlar, toplu taşıma kullanımının artırılması gerektiğine dikkat çekiyor.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <h2 class="section-title mt-4">TEKNOLOJİ</h2>
-                <div class="row mb-4">
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <img src="https://picsum.photos/400/225?random=7" class="card-img-top" alt="Teknoloji 1">
-                            <div class="card-body">
-                                <h6 class="card-title">Yapay Zeka Devrimi ve Etik Sorunlar</h6>
-                                <p class="card-text small text-muted">Uzmanlar yapay zekanın geleceğini tartışıyor.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <img src="https://picsum.photos/400/225?random=8" class="card-img-top" alt="Teknoloji 2">
-                            <div class="card-body">
-                                <h6 class="card-title">Yeni Nesil Akıllı Telefonlar Piyasayı Sarsacak</h6>
-                                <p class="card-text small text-muted">Katlanabilir ekran teknolojileri hız kesmiyor.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <img src="https://picsum.photos/400/225?random=9" class="card-img-top" alt="Teknoloji 3">
-                            <div class="card-body">
-                                <h6 class="card-title">Uzay Turizminde Yeni Dönem Başlıyor</h6>
-                                <p class="card-text small text-muted">Özel şirketler uzay yolculuğu planlarını açıkladı.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="reklam-alani-main d-flex justify-content-center mb-5">
-                    <img src="https://via.placeholder.com/728x90/007bff/fff?text=Reklam+Alanı+(728x90)" alt="Yatay Reklam">
-                </div>
-
-                <h2 class="section-title mt-4">SPOR</h2>
-                <div class="row mb-4">
-                    <div class="col-md-6 mb-4">
-                         <div class="card">
-                            <img src="https://picsum.photos/600/338?random=10" class="card-img-top" alt="Spor 1">
-                            <div class="card-body">
-                                <h5 class="card-title">Süper Lig'de Haftanın Derbisinde Gülen Taraf...</h5>
-                                <p class="card-text">Maçın kritik anları, goller ve uzman yorumları.</p>
-                                <a href="#" class="btn btn-outline-dark btn-sm">Devamını Oku</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                         <div class="card">
-                            <img src="https://picsum.photos/600/338?random=11" class="card-img-top" alt="Spor 2">
-                            <div class="card-body">
-                                <h5 class="card-title">Transfer Dönemi Kapanmadan Son Bomba!</h5>
-                                <p class="card-text">Yıldız oyuncu hangi takıma imzayı atacak?</p>
-                                <a href="#" class="btn btn-outline-dark btn-sm">Devamını Oku</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <h2 class="section-title mt-4">EKONOMİ</h2>
-                <div class="row mb-4">
-                    <div class="col-6 col-lg-3 mb-4">
-                        <div class="card ekonomi-mini-card">
-                            <img src="https://picsum.photos/300/169?random=12" class="card-img-top" alt="Borsa">
-                            <div class="card-body"><h6 class="card-title">Borsada Rekor Kapanışlar</h6></div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3 mb-4">
-                        <div class="card ekonomi-mini-card">
-                            <img src="https://picsum.photos/300/169?random=13" class="card-img-top" alt="Altın">
-                            <div class="card-body"><h6 class="card-title">Altın Fiyatlarında Son Durum</h6></div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3 mb-4">
-                        <div class="card ekonomi-mini-card">
-                            <img src="https://picsum.photos/300/169?random=14" class="card-img-top" alt="Döviz">
-                            <div class="card-body"><h6 class="card-title">Döviz Kurları Hareketli</h6></div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3 mb-4">
-                        <div class="card ekonomi-mini-card">
-                            <img src="https://picsum.photos/300/169?random=15" class="card-img-top" alt="Faiz">
-                            <div class="card-body"><h6 class="card-title">Faiz Kararı Beklentisi</h6></div>
-                        </div>
-                    </div>
-                </div>
-
-                <h2 class="section-title mt-4">DÜNYA</h2>
-                <div class="dunya-list-item d-flex align-items-center mb-3">
-                    <img src="https://picsum.photos/150/100?random=16" alt="Dünya 1">
-                    <div class="p-3">
-                        <h6 class="card-title mb-1">Ukrayna'da Cephe Hattında Son Durum</h6>
-                        <small class="text-muted">3 saat önce</small>
-                    </div>
-                </div>
-                <div class="dunya-list-item d-flex align-items-center mb-3">
-                    <img src="https://picsum.photos/150/100?random=17" alt="Dünya 2">
-                    <div class="p-3">
-                        <h6 class="card-title mb-1">ABD'de Enflasyon Verileri Açıklandı</h6>
-                        <small class="text-muted">5 saat önce</small>
-                    </div>
-                </div>
-                <div class="dunya-list-item d-flex align-items-center mb-3">
-                    <img src="https://picsum.photos/150/100?random=18" alt="Dünya 3">
-                    <div class="p-3">
-                        <h6 class="card-title mb-1">Çin'de Ekonomik Büyüme Rakamları</h6>
-                        <small class="text-muted">1 gün önce</small>
-                    </div>
-                </div>
-
-            </div> <div class="col-lg-4">
-                <div class="sticky-top" style="top: 80px;"> 
-                    <div class="reklam-alani-sidebar mb-4">
-                        <img src="https://via.placeholder.com/300x250/dc3545/fff?text=Sidebar+Reklam+(300x250)" alt="Dikey Reklam">
-                    </div>
-
-                    <div class="sidebar-widget">
-                        <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="cok-okunanlar-tab" data-bs-toggle="tab" data-bs-target="#cok-okunanlar" type="button" role="tab" aria-controls="cok-okunanlar" aria-selected="true">ÇOK OKUNANLAR</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="yorumlar-tab" data-bs-toggle="tab" data-bs-target="#yorumlar" type="button" role="tab" aria-controls="yorumlar" aria-selected="false">YORUMLAR</button>
-                            </li>
-                        </ul>
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="cok-okunanlar" role="tabpanel" aria-labelledby="cok-okunanlar-tab">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item popular-post-item d-flex align-items-center">
-                                        <img src="https://picsum.photos/60/60?random=19" class="rounded me-3" alt="Popüler 1">
-                                        <a href="#" class="text-dark text-decoration-none fw-bold">1. Yapay Zeka Etiği Tartışmaları</a>
-                                    </li>
-                                    <li class="list-group-item popular-post-item d-flex align-items-center">
-                                        <img src="https://picsum.photos/60/60?random=20" class="rounded me-3" alt="Popüler 2">
-                                        <a href="#" class="text-dark text-decoration-none fw-bold">2. Enflasyon Rakamlarında Son Durum</a>
-                                    </li>
-                                    <li class="list-group-item popular-post-item d-flex align-items-center">
-                                        <img src="https://picsum.photos/60/60?random=21" class="rounded me-3" alt="Popüler 3">
-                                        <a href="#" class="text-dark text-decoration-none fw-bold">3. Süper Lig'de Haftanın Maçları</a>
-                                    </li>
-                                    <li class="list-group-item popular-post-item d-flex align-items-center">
-                                        <img src="https://picsum.photos/60/60?random=22" class="rounded me-3" alt="Popüler 4">
-                                        <a href="#" class="text-dark text-decoration-none fw-bold">4. Yeni Nesil Akıllı Telefon İncelemesi</a>
-                                    </li>
-                                    <li class="list-group-item popular-post-item d-flex align-items-center">
-                                        <img src="https://picsum.photos/60/60?random=23" class="rounded me-3" alt="Popüler 5">
-                                        <a href="#" class="text-dark text-decoration-none fw-bold">5. Uzay Araştırmalarında Yeni Keşifler</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="tab-pane fade" id="yorumlar" role="tabpanel" aria-labelledby="yorumlar-tab">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item popular-post-item">
-                                        <small class="text-muted">Ahmet Y. - "Çok faydalı bir haber..."</small><br>
-                                        <a href="#" class="text-dark text-decoration-none">Yapay Zeka Etiği Tartışmaları</a>
-                                    </li>
-                                    <li class="list-group-item popular-post-item">
-                                        <small class="text-muted">Zeynep K. - "Ekonomi çok hassas..."</small><br>
-                                        <a href="#" class="text-dark text-decoration-none">Enflasyon Rakamlarında Son Durum</a>
-                                    </li>
-                                    <li class="list-group-item popular-post-item">
-                                        <small class="text-muted">Mustafa A. - "Transferde çok şaşırdım..."</small><br>
-                                        <a href="#" class="text-dark text-decoration-none">Transferde Son Bomba!</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="reklam-alani-sidebar mb-4">
-                        <img src="https://via.placeholder.com/300x250/28a745/fff?text=Sidebar+Reklam+2+(300x250)" alt="Dikey Reklam 2">
-                    </div>
-
-                    <div class="sidebar-widget">
-                        <h4>VİDEO GALERİ</h4>
-                        <div class="video-gallery-main mb-3">
-                             <img src="https://picsum.photos/400/225?random=24" class="img-fluid" alt="Ana Video">
-                             <h6 class="mt-2">Haftanın En Çok Konuşulan Röportajı: Teknolojiye Bakış</h6>
-                        </div>
-                        <div class="row video-gallery-thumbs g-2">
-                            <div class="col-4"><img src="https://picsum.photos/150/84?random=25" class="img-fluid" alt="Video 1"></div>
-                            <div class="col-4"><img src="https://picsum.photos/150/84?random=26" class="img-fluid" alt="Video 2"></div>
-                            <div class="col-4"><img src="https://picsum.photos/150/84?random=27" class="img-fluid" alt="Video 3"></div>
-                        </div>
-                    </div>
-
-                    <div class="sidebar-widget">
-                        <h4>KATEGORİLER</h4>
-                        <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Gündem <span class="badge bg-primary rounded-pill">14</span></a>
-                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Teknoloji <span class="badge bg-primary rounded-pill">8</span></a>
-                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Spor <span class="badge bg-primary rounded-pill">22</span></a>
-                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Ekonomi <span class="badge bg-primary rounded-pill">10</span></a>
-                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Dünya <span class="badge bg-primary rounded-pill">18</span></a>
-                        </div>
-                    </div>
-
-                </div>
-            </div> </div> </div> <section class="subscribe-section text-center section-spacing">
-        <div class="container">
-            <h3 class="fw-bold">Yunus Haber'e abone ol, en güncel gelişmeleri kaçırma!</h3>
-            <p>Haftalık bültenimize kaydolun.</p>
-            <form class="row justify-content-center g-3 mt-3">
-                <div class="col-auto col-md-5 col-lg-4">
-                    <input type="email" class="form-control form-control-lg" placeholder="E-posta adresiniz...">
-                </div>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-vurgu btn-lg">Abone Ol</button>
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <footer class="footer-main">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <h5 class="fs-4"><i class="bi bi-newspaper"></i> YUNUS HABER</h5>
-                    <p class="mt-3">Tarafsız, hızlı ve doğru habercilik ilkesiyle yayın hayatına devam eden Yunus Haber, gündemi sizin için takip eder.</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="bi bi-facebook"></i></a>
-                        <a href="#"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#"><i class="bi bi-instagram"></i></a>
-                        <a href="#"><i class="bi bi-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <h5>Hızlı Menü</h5>
-                    <ul class="list-unstyled row">
-                        <li class="col-6"><a href="#">Gündem</a></li>
-                        <li class="col-6"><a href="#">Teknoloji</a></li>
-                        <li class="col-6"><a href="#">Spor</a></li>
-                        <li class="col-6"><a href="#">Ekonomi</a></li>
-                        <li class="col-6"><a href="#">Dünya</a></li>
-                        <li class="col-6"><a href="#">Hakkımızda</a></li>
-                        <li class="col-6"><a href="#">İletişim</a></li>
-                        <li class="col-6"><a href="#">Gizlilik Politikası</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4">
-                    <h5>İletişim</h5>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-envelope-fill me-2"></i> info@yunushaber.com</li>
-                        <li><i class="bi bi-phone-fill me-2"></i> +90 5XX XXX XX XX</li>
-                        <li><i class="bi bi-geo-alt-fill me-2"></i> Siirt, Türkiye</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row footer-bottom">
-                <div class="col text-center">
-                    <p class="mb-0">© 2025 Yunus Haber - Tüm Hakları Saklıdır.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <script>
-        // Manşet Slider'ın otomatik çalışması için
-        var mansetSlider = document.getElementById('mansetSlider')
-        var carousel = new bootstrap.Carousel(mansetSlider, {
-            interval: 5000, // 5 saniyede bir geçiş
-            wrap: true
-        });
+        // Yıldızları oluştur
+        const starsContainer = document.getElementById('starsContainer');
+        for (let i = 0; i < 80; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2.5 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+            starsContainer.appendChild(star);
+        }
 
-        // Kayan Son Dakika Haberi (Basic Scroll)
-        // Gerçek bir ticker için daha gelişmiş JS gerekebilir
-        const topBarTickerl  = document.querySelector('.top-bar-ticker span');
-        if (topBarTicker) {
-            let scrollPos = 0;
-            const scrollSpeed = 0.5; // piksel/kare
-            function scrollTicker() {
-                scrollPos += scrollSpeed;
-                if (scrollPos > topBarTicker.scrollWidth / 2) { // Metin yarıya geldiğinde başa dön
-                    scrollPos = 0;
-                }
-                topBarTicker.style.transform = `translateX(-${scrollPos}px)`;
-                requestAnimationFrame(scrollTicker);
+        function toggleLetter() {
+            const container = document.getElementById('mainContainer');
+            const isOpen = container.classList.contains('open');
+            
+            container.classList.toggle('open');
+
+            if (!isOpen) {
+                createHearts();
             }
-            // requestAnimationFrame(scrollTicker); // Şimdilik devre dışı, karmaşık görünebilir
+        }
+
+        function createHearts() {
+            const heartCount = window.innerWidth < 600 ? 25 : 40;
+            for (let i = 0; i < heartCount; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-particle';
+                    heart.innerHTML = '❤';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '-20px';
+                    heart.style.opacity = Math.random();
+                    heart.style.fontSize = Math.random() * 15 + 10 + 'px';
+                    heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 5000);
+                }, i * 80);
+            }
         }
     </script>
+
 </body>
 </html>
